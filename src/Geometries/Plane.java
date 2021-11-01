@@ -65,7 +65,7 @@ public class Plane extends Geometry{
     }
 
     private boolean isPointInPlane(Point3D otherPoint){               // Calculating plane equation and determining whether a point is in that plane.
-        Point3D normal = this.getVerticalToPlane().get_head();        // normal * (x,y,z) + d = 0.  where normal is the vector that vertical to plane.
+        Point3D normal = this.getVerticalToPlane().get_head();        // normal * (x,y,z) + d = 0.  where normal is the vector vertical to plane.
         double correctD = -(normal.getX() * this.getPointInPlane().getX() +
                             normal.getY() * this.getPointInPlane().getY() +     // Calculating the correct d for the plane.
                             normal.getZ() * this.getPointInPlane().getZ());
