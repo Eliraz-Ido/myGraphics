@@ -1,5 +1,6 @@
 package Scene;
 
+import Elements.Camera;
 import Geometries.Geometry;
 
 import java.util.ArrayList;
@@ -9,23 +10,37 @@ import java.util.Objects;
 public class Scene {
     String _name;
     List<Geometry> _geometries;
+    Camera _camera;
+
     public Scene(){
         this._name = "";
         this._geometries = new ArrayList<Geometry>();
+        this._camera = new Camera();
     }
     public Scene(String name){
         this._name = name;
         this._geometries = new ArrayList<Geometry>();
+        this._camera = new Camera();
     }
     public Scene(String name, Geometry g){
         this._name = name;
         this._geometries = new ArrayList<Geometry>();
         this._geometries.add(g);
+        this._camera = new Camera();
     }
+    public Scene(String name, Geometry g, Camera camera){
+        this._name = name;
+        this._geometries = new ArrayList<Geometry>();
+        this._geometries.add(g);
+        this.setCamera(camera);
+    }
+
     public String getName() { return this._name; }
     public List<Geometry> getGeometries() { return this._geometries; }
+    public Camera getCamera() { return  this._camera; }
     public void setName(String name) {this._name = name; }
     public void setGeometries(ArrayList<Geometry> g){ this._geometries = g; }
+    public void setCamera(Camera camera) { this._camera = camera; }
 
     @Override
     public boolean equals(Object o) {

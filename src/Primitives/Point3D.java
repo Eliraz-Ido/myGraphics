@@ -6,8 +6,7 @@ public class Point3D{
     private Coordinate _x;
     private Coordinate _y;
     private Coordinate _z;
-
-    static final Point3D ZERO = new Point3D(0,0,0);
+    public static final Point3D ZERO = new Point3D(0,0,0);;
 
     public Point3D(){
         this.setX(0);
