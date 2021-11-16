@@ -15,10 +15,13 @@ public class Coordinate {
 
     public double getCoordinate(){ return this._coordinate; }
     public void set(double coordinate) { this._coordinate = coordinate; }
-    public boolean equals(Coordinate coordinate2){
-        return this.getCoordinate()== coordinate2.getCoordinate();
-    }
     public double add(Coordinate toAdd){ return this._coordinate + toAdd._coordinate;}
+
+    public boolean equals(Coordinate coordinate2){
+        return  this.getCoordinate() - coordinate2.getCoordinate() < 0.0000000005 &&
+                coordinate2.getCoordinate() - this.getCoordinate() < 0.0000000005;
+
+    }
 
     @Override
     public String toString() {

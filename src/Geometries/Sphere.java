@@ -1,6 +1,10 @@
 package Geometries;
 import Primitives.Point3D;
+import Primitives.Ray;
+import Primitives.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Sphere extends Geometry{
@@ -18,6 +22,11 @@ public class Sphere extends Geometry{
     public Sphere(Sphere toCopy){
         this._center = new Point3D(toCopy._center);
         this._radius = toCopy._radius;
+    }
+
+    public Sphere(double radius, Point3D center) {
+        this._center = center;
+        this._radius = radius;
     }
 
     public double getRadius() { return _radius; }
@@ -47,4 +56,29 @@ public class Sphere extends Geometry{
                 "Radius: " + _radius;
     }
 
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        List<Point3D> list = new ArrayList<>();
+        Vector u = this._center.subtract(ray.getStartingPoint());
+        double tm = ray.getDirection().dotProduct(u);
+        double d = Math.sqrt( Math.pow(u.length(), 2) - Math.pow(tm, 2) );
+        if (d <= this._radius) {
+            double th = Math.sqrt( Math.pow(this._radius, 2) - Math.pow(d, 2) );
+            double t1 = tm - th;
+            double t2 = tm + th;
+            if (0 < t1 || 0 < t2) {
+                if (0 < t1)
+                    list.add(new Point3D( ray.getStartingPoint().add( ray.getDirection().scale(t1) )) );
+                if (0 < t2)
+                    list.add(new Point3D( ray.getStartingPoint().add( ray.getDirection().scale(t2) )) );
+                return list;
+            }
+        }
+        return null;
+    }
+        @Override
+    public Vector getNormal(Point3D point) {
+        return point.subtract(this._center);
+    }
 }

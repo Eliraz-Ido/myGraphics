@@ -1,6 +1,8 @@
 package Geometries;
 import Primitives.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Triangle extends Geometry{
@@ -69,4 +71,37 @@ public class Triangle extends Geometry{
     }
 
 
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        Plane p = new Plane(this._p1,this._p2,this._p3);
+        if(p.findIntersections(ray) != null){
+
+            Vector v1 = _p1.subtract(ray.getStartingPoint());
+            Vector v2 = _p2.subtract(ray.getStartingPoint());
+            Vector v3 = _p3.subtract(ray.getStartingPoint());
+
+            Vector n1 = v1.crossProduct(v2).normalize();
+            Vector n2 = v2.crossProduct(v3).normalize();
+            Vector n3 = v3.crossProduct(v1).normalize();
+
+            double sign1 = Math.signum(n1.dotProduct(ray.getDirection()));
+            double sigh2 = Math.signum(n2.dotProduct(ray.getDirection()));
+            double sigh3 = Math.signum(n3.dotProduct(ray.getDirection()));
+
+            if(sign1 == 0.0 || sigh2 == 0.0 || sigh3 == 0.0){
+                return null;
+            }
+            if(sign1 == sigh2 && sign1 == sigh3){
+                return p.findIntersections(ray);
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Vector getNormal(Point3D point) {
+        Plane p = new Plane(this._p1,this._p2,this._p3);
+        return p.getNormal(point);
+    }
 }

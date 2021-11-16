@@ -1,7 +1,10 @@
 package Geometries;
 import Primitives.Point3D;
+import Primitives.Ray;
 import Primitives.Vector;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class Plane extends Geometry{
@@ -23,8 +26,8 @@ public class Plane extends Geometry{
     }
 
     public Plane(Point3D p1, Point3D p2, Point3D p3) {
-        Vector v1 = p1.subtract(p2);
-        Vector v2 = p1.subtract(p3);
+        Vector v1 = p2.subtract(p1);
+        Vector v2 = p3.subtract(p1);
         this._verticalToPlane = v1.crossProduct(v2).normalize();
         this._pointInPlane = new Point3D(p1);
     }
@@ -38,7 +41,7 @@ public class Plane extends Geometry{
     public Vector getVerticalToPlane() { return _verticalToPlane; }
 
     public void setVerticalToPlane(double xVector, double yVector, double zVector) {
-        this._verticalToPlane = new Vector(xVector, yVector, zVector);
+        this._verticalToPlane = new Vector(xVector, yVector, zVector).normalize();
     }
 
     public void setStartingPoint(double xPoint, double yPoint, double zPoint) {
@@ -65,15 +68,38 @@ public class Plane extends Geometry{
     }
 
     private boolean isPointInPlane(Point3D otherPoint){               // Calculating plane equation and determining whether a point is in that plane.
-        Point3D normal = this.getVerticalToPlane().get_head();        // normal * (x,y,z) + d = 0.  where normal is the vector vertical to plane.
+        Point3D normal = this.getVerticalToPlane().getHead();        // normal * (x,y,z) + d = 0.  where normal is the vector vertical to plane.
         double correctD = -(normal.getX() * this.getPointInPlane().getX() +
                             normal.getY() * this.getPointInPlane().getY() +     // Calculating the correct d for the plane.
                             normal.getZ() * this.getPointInPlane().getZ());
         double otherD = -(normal.getX() * otherPoint.getX() +
-                          normal.getY() * otherPoint.getY() +     // Calculating the d for the plane with otherPoint .
+                          normal.getY() * otherPoint.getY() +   // Calculating the d for the plane with otherPoint .
                           normal.getZ() * otherPoint.getZ());
 
         return correctD == otherD;
     }
 
+
+    @Override
+    public List<Point3D> findIntersections(Ray ray) {
+        List<Point3D> intersections = new ArrayList<>();
+        if (!this._pointInPlane.equals(ray.getStartingPoint())) {
+            double numerator = this._verticalToPlane.dotProduct(this._pointInPlane.subtract(ray.getStartingPoint()));
+            double denominator = this._verticalToPlane.dotProduct(ray.getDirection());
+            if (denominator == 0) {       // The Ray is contained or parallel to the plane.
+                return null;
+            } else if ( 0 < numerator / denominator) {
+                Point3D p = ray.getStartingPoint().add(ray.getDirection().scale(numerator / denominator));
+                intersections.add(p);
+                return intersections;
+            }
+        }
+        return null;
+
+    }
+
+    @Override
+    public Vector getNormal(Point3D point) {
+        return this._verticalToPlane;
+    }
 }

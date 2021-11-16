@@ -23,13 +23,13 @@ public class Vector {
         _head = new Point3D(other._head);
     }
 
-    public Point3D get_head() {
+    public Point3D getHead() {
         return this._head;
     }
-    public void set_head(Point3D head){
+    public void setHead(Point3D head){
         this._head = new Point3D(head);
     }
-    public void set_head(double x, double y, double z){
+    public void setHead(double x, double y, double z){
         this._head = new Point3D(x,y,z);
     }
 
@@ -46,8 +46,6 @@ public class Vector {
         return Objects.hash(_head);
     }
 
-
-
     @Override
     public String toString() {
         return "Ending Point: " + _head;
@@ -60,37 +58,37 @@ public class Vector {
     public Vector normalize(){
         Vector normalVector = new Vector();
         double length = this.length();
-        normalVector.set_head(this.get_head().getX() / length,
-                this.get_head().getY() / length,
-                this.get_head().getZ() / length);
+        normalVector.setHead(this.getHead().getX() / length,
+                this.getHead().getY() / length,
+                this.getHead().getZ() / length);
         return normalVector;
     }
     public Vector add(Vector other){
-        return new Vector(this.get_head().add(other.get_head()));
+        return new Vector(this.getHead().add(other.getHead()));
     }
     public Vector subtract(Vector other){
-        return this.get_head().subtract(other.get_head());
+        return this.getHead().subtract(other.getHead());
     }
     public Vector scale(double scalar){
         return (new Vector(
-                this.get_head().getX() * scalar,
-                this.get_head().getY() * scalar,
-                this.get_head().getZ() * scalar));
+                this.getHead().getX() * scalar,
+                this.getHead().getY() * scalar,
+                this.getHead().getZ() * scalar));
     }
     public Vector crossProduct(Vector other){
         Point3D newHead = new Point3D();
-        newHead.setX( this.get_head().getY() * other.get_head().getZ()
-                - this.get_head().getZ() * other.get_head().getY());
-        newHead.setY( this.get_head().getZ() * other.get_head().getX()
-                - this.get_head().getX() * other.get_head().getZ());
-        newHead.setZ( this.get_head().getX() * other.get_head().getY()
-                - this.get_head().getY() * other.get_head().getX());
+        newHead.setX( this.getHead().getY() * other.getHead().getZ()
+                - this.getHead().getZ() * other.getHead().getY());
+        newHead.setY( this.getHead().getZ() * other.getHead().getX()
+                - this.getHead().getX() * other.getHead().getZ());
+        newHead.setZ( this.getHead().getX() * other.getHead().getY()
+                - this.getHead().getY() * other.getHead().getX());
         return (new Vector(newHead));
     }
     public double dotProduct(Vector other){
-        return  ( this.get_head().getX() * other.get_head().getX()
-                + this.get_head().getY() * other.get_head().getY()
-                + this.get_head().getZ() * other.get_head().getZ());
+        return  ( this.getHead().getX() * other.getHead().getX()
+                + this.getHead().getY() * other.getHead().getY()
+                + this.getHead().getZ() * other.getHead().getZ());
     }
 
 }

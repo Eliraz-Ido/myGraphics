@@ -16,8 +16,8 @@ public class Ray {
         this._direction = new Vector(xVector, yVector, zVector).normalize();
     }
     public Ray(Ray toCopy){
-        this._startingPoint = new Point3D(toCopy.get_startingPoint());
-        this._direction = new Vector(toCopy.get_direction()).normalize();
+        this._startingPoint = new Point3D(toCopy.getStartingPoint());
+        this._direction = new Vector(toCopy.getDirection()).normalize();
     }
 
     public Ray(Point3D point, Vector vector){
@@ -25,8 +25,8 @@ public class Ray {
         this._direction = new Vector(vector).normalize();
     }
 
-    public Point3D get_startingPoint() { return this._startingPoint; }
-    public Vector get_direction() { return this._direction; }
+    public Point3D getStartingPoint() { return this._startingPoint; }
+    public Vector getDirection() { return this._direction; }
 
     public void setStartingPoint(double xPoint, double yPoint, double zPoint){
         this._startingPoint = new Point3D(xPoint, yPoint, zPoint);

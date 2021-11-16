@@ -17,7 +17,7 @@ public class Point3D{
         this.setX(x);
         this.setY(y);
         this.setZ(z);
-    }
+     }
     public Point3D(Point3D toCopy){
         this._x = new Coordinate(toCopy.getX());
         this._y = new Coordinate(toCopy.getY());
@@ -58,7 +58,7 @@ public class Point3D{
                 this.getZ() + other.getZ());
     }
     public Point3D add(Vector v){
-        return this.add(v.get_head());
+        return this.add(v.getHead());
     }
 
     public Vector subtract(Point3D other){
