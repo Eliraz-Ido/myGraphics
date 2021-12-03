@@ -3,6 +3,7 @@ import Primitives.Point3D;
 import Primitives.Ray;
 import Primitives.Vector;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -31,12 +32,24 @@ public class Plane extends Geometry{
         this._verticalToPlane = v1.crossProduct(v2).normalize();
         this._pointInPlane = new Point3D(p1);
     }
+    public Plane(Point3D p1, Point3D p2, Point3D p3, Color color) {
+        Vector v1 = p2.subtract(p1);
+        Vector v2 = p3.subtract(p1);
+        this._verticalToPlane = v1.crossProduct(v2).normalize();
+        this._pointInPlane = new Point3D(p1);
+        this._emission = color;
+    }
 
     public Plane(Point3D p, Vector n) {
         this._verticalToPlane = n.normalize();
         this._pointInPlane = new Point3D(p);
     }
 
+    public Plane(Point3D p, Vector n, Color color) {
+        this._verticalToPlane = n.normalize();
+        this._pointInPlane = new Point3D(p);
+        this._emission = color;
+    }
     public Point3D getPointInPlane() { return _pointInPlane; }
     public Vector getVerticalToPlane() { return _verticalToPlane; }
 
@@ -81,8 +94,8 @@ public class Plane extends Geometry{
 
 
     @Override
-    public List<Point3D> findIntersections(Ray ray) {
-        List<Point3D> intersections = new ArrayList<>();
+    public List<GeoPoint> findIntersections(Ray ray) {
+        List<GeoPoint> intersections = new ArrayList<>();
         if (!this._pointInPlane.equals(ray.getStartingPoint())) {
             double numerator = this._verticalToPlane.dotProduct(this._pointInPlane.subtract(ray.getStartingPoint()));
             double denominator = this._verticalToPlane.dotProduct(ray.getDirection());
@@ -90,7 +103,7 @@ public class Plane extends Geometry{
                 return null;
             } else if ( 0 < numerator / denominator) {
                 Point3D p = ray.getStartingPoint().add(ray.getDirection().scale(numerator / denominator));
-                intersections.add(p);
+                intersections.add(new GeoPoint(this,p));
                 return intersections;
             }
         }
@@ -100,6 +113,6 @@ public class Plane extends Geometry{
 
     @Override
     public Vector getNormal(Point3D point) {
-        return this._verticalToPlane;
+        return this._verticalToPlane.normalize();
     }
 }

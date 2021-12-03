@@ -1,5 +1,7 @@
 package Primitives;
 
+import java.util.Objects;
+
 public class Coordinate {
     private double _coordinate;
 
@@ -17,10 +19,19 @@ public class Coordinate {
     public void set(double coordinate) { this._coordinate = coordinate; }
     public double add(Coordinate toAdd){ return this._coordinate + toAdd._coordinate;}
 
-    public boolean equals(Coordinate coordinate2){
+    @Override
+    public boolean equals(Object o) {
+
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Coordinate coordinate2 = (Coordinate) o;
         return  this.getCoordinate() - coordinate2.getCoordinate() < 0.0000000005 &&
                 coordinate2.getCoordinate() - this.getCoordinate() < 0.0000000005;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(_coordinate);
     }
 
     @Override

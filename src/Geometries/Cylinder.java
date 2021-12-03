@@ -1,6 +1,10 @@
 package Geometries;
+import Primitives.Point3D;
 import Primitives.Ray;
+import Primitives.Vector;
 
+import java.awt.*;
+import java.util.List;
 import java.util.Objects;
 
 public class Cylinder extends Geometry{
@@ -12,6 +16,12 @@ public class Cylinder extends Geometry{
         this._radius = 0;
         this._height = 0;
         this._axis = new Ray();
+    }
+    public Cylinder(double radius, double height, Ray ray, Color color){
+        this._radius = radius;
+        this._height = height;
+        this._axis = ray;
+        this._emission = color;
     }
     public Cylinder(double radius, double height,
                     double xPoint, double yPoint, double zPoint,
@@ -37,11 +47,6 @@ public class Cylinder extends Geometry{
     public void setHeight(double _height) { this._height = _height; }
     public void setRadius(double _radius) { this._radius = _radius; }
 
-    public boolean equals(Cylinder cylinder2){
-        return this._axis.equals(cylinder2._axis) &&
-                this._height == cylinder2._height &&
-                this._radius == cylinder2._radius;
-    }
 
     @Override
     public boolean equals(Object o) {
@@ -62,5 +67,15 @@ public class Cylinder extends Geometry{
         return  "radius: " + _radius +
                 ", height:" + _height +
                 ", axis:" + _axis;
+    }
+
+    @Override
+    public List<GeoPoint> findIntersections(Ray ray) {
+        return null;
+    }
+
+    @Override
+    public Vector getNormal(Point3D point) {
+        return null;
     }
 }

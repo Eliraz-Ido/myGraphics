@@ -47,7 +47,7 @@ public class Ray {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Ray ray2 = (Ray) o;
-        return _startingPoint.equals(ray2._startingPoint) && _direction.equals(ray2._direction);
+        return _startingPoint.equals(ray2._startingPoint) && _direction.normalize().equals(ray2._direction.normalize());
     }
 
     @Override
