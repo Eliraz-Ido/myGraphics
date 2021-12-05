@@ -40,33 +40,25 @@ public class TestMy2DPictureRenderer {
 //        render.renderImage();
 //    }
 
-//    @Test
-//    public void t2(){
-//        Camera c = new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0));
-//        System.out.println(c.tt(500,500,0,0,100,500,500));
-//        System.out.println(c.tt(500,500,250,250,100,500,500));
-//        System.out.println(c.tt(500,500,500,500,100,500,500));
-//        System.out.println(Point3D.ZERO.distance(new Point3D(0,70,60)));
-//        System.out.println(Point3D.ZERO.distance(new Point3D(0,25,110)));
-//    }
+    @Test
+    public void clouds() {
+        Scene scene = new Scene("Test scene");
+        scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
+        scene.setScreenDistance(100) ;
+        scene.setBackground(new Color(5, 30, 56, 255));
 
-//    @Test
-//    public void clouds() {
-//        Scene scene = new Scene("Test scene");
-//        scene.setCamera(new Camera(Point3D.ZERO, new Vector(0, 0, 1), new Vector(0, -1, 0)));
-//        scene.setScreenDistance(100) ;
-//        scene.setBackground(new Color(5, 30, 56, 255));
-//
-////        scene.addGeometry(new Sphere(300, new Point3D(350,0,1800), new Color(255, 255, 255)));
-////        scene.addGeometry(new Sphere(30, new Point3D(100,0,180), new Color(255, 255, 255)));
-////        scene.addGeometry(new Sphere(5000, new Point3D(17000,-10000,18000), new Color(255, 255, 255)));
-//
-//        scene.addGeometry(new Sphere(120, new Point3D(0,0,200), new Color(255, 70, 70, 255)));
+//        scene.addGeometry(new Sphere(300, new Point3D(350,0,1800), new Color(255, 255, 255)));
+//        scene.addGeometry(new Sphere(30, new Point3D(100,0,180), new Color(255, 255, 255)));
+//        scene.addGeometry(new Sphere(5000, new Point3D(17000,-10000,18000), new Color(255, 255, 255)));
+
+        scene.addGeometry(new Sphere(900, new Point3D(0,0,1000), new Color(255, 70, 70, 255)));
 //        scene.addGeometry(new Sphere(110, new Point3D(0,0,140), new Color(255, 143, 93, 255)));
-//
-//        ImageWriter imageWriter = new ImageWriter("my2DPictureClouds", 500, 500, 500, 500);
-//        Renderer render = new Renderer(scene, imageWriter);
-//
-//        render.renderImage();
-//    }
+        scene.addGeometry(new Sphere(600, new Point3D(0,0,900), new Color(255, 246, 70, 255)));
+//        scene.addGeometry(new Sphere(110, new Point3D(0,0,80), new Color(255, 143, 93, 255)));
+
+        ImageWriter imageWriter = new ImageWriter("my2DPictureClouds", 500, 500, 500, 500);
+        Renderer render = new Renderer(scene, imageWriter);
+
+        render.renderImage();
+    }
 }
