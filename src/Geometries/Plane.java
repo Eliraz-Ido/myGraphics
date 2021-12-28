@@ -12,15 +12,18 @@ public class Plane extends Geometry{
     private Point3D _pointInPlane;
     private Vector _verticalToPlane;
 
+    //Constructors
     public Plane(){
         this._pointInPlane = new Point3D();
         this._verticalToPlane = new Vector().normalize();
     }
+
     public Plane(double xPoint, double yPoint, double zPoint,
                  double xVector, double yVector, double zVector){
         this._pointInPlane = new Point3D(xPoint, yPoint, zPoint);
         this._verticalToPlane = (new Vector(xVector, yVector, zVector)).normalize();
     }
+
     public Plane(Plane toCopy){
         this._pointInPlane = new Point3D(toCopy._pointInPlane);
         this._verticalToPlane = (new Vector(toCopy._verticalToPlane)).normalize();
@@ -32,6 +35,7 @@ public class Plane extends Geometry{
         this._verticalToPlane = v1.crossProduct(v2).normalize();
         this._pointInPlane = new Point3D(p1);
     }
+
     public Plane(Point3D p1, Point3D p2, Point3D p3, Color color) {
         Vector v1 = p2.subtract(p1);
         Vector v2 = p3.subtract(p1);
@@ -50,9 +54,12 @@ public class Plane extends Geometry{
         this._pointInPlane = new Point3D(p);
         this._emission = color;
     }
+
+    //Getters
     public Point3D getPointInPlane() { return _pointInPlane; }
     public Vector getVerticalToPlane() { return _verticalToPlane; }
 
+    //Setters
     public void setVerticalToPlane(double xVector, double yVector, double zVector) {
         this._verticalToPlane = new Vector(xVector, yVector, zVector).normalize();
     }
@@ -61,12 +68,15 @@ public class Plane extends Geometry{
         this._pointInPlane = new Point3D(xPoint, yPoint, zPoint);
     }
 
+    //Other Methods
     @Override
     public boolean equals(Object o) {          // To compare 2 planes we need to 1. see if the 2 vertices to the planes are equals. Because we normalize every vector we can use equals method.
         if (this == o) return true;            //2. Determine whether a point is in the other plane.  if the vertices are equals but the point is not in the other plane => the planes are parallel.
         if (o == null || getClass() != o.getClass()) return false;
         Plane plane2 = (Plane) o;
-        return this.isPointInPlane(plane2._pointInPlane) && Objects.equals(_verticalToPlane, plane2._verticalToPlane);
+        return  this.isPointInPlane(plane2._pointInPlane) &&
+                Objects.equals(_verticalToPlane, plane2._verticalToPlane) &&
+                this._material.equals(plane2._material);
     }
 
     @Override

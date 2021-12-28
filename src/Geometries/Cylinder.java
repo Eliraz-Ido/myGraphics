@@ -12,17 +12,20 @@ public class Cylinder extends Geometry{
     private double _height;
     private Ray _axis;
 
+    //Constructors
     public Cylinder(){
         this._radius = 0;
         this._height = 0;
         this._axis = new Ray();
     }
+
     public Cylinder(double radius, double height, Ray ray, Color color){
         this._radius = radius;
         this._height = height;
         this._axis = ray;
         this._emission = color;
     }
+
     public Cylinder(double radius, double height,
                     double xPoint, double yPoint, double zPoint,
                     double xVector, double yVector, double zVector) {
@@ -30,16 +33,19 @@ public class Cylinder extends Geometry{
         this._height = height;
         this._axis = new Ray(xPoint, yPoint, zPoint, xVector, yVector, zVector);
     }
+
     public Cylinder(Cylinder toCopy){
         this._radius = toCopy._radius;
         this._height = toCopy._height;
         this._axis = new Ray(toCopy._axis);
     }
 
+    //Getters
     public double getRadius() { return _radius; }
     public double getHeight() { return _height; }
     public Ray getAxis() { return _axis; }
 
+    //Setters
     public void setAxis(double xPoint, double yPoint, double zPoint,
                         double xVector, double yVector, double zVector) {
         this._axis = new Ray(xPoint, yPoint, zPoint, xVector, yVector, zVector);
@@ -47,7 +53,7 @@ public class Cylinder extends Geometry{
     public void setHeight(double _height) { this._height = _height; }
     public void setRadius(double _radius) { this._radius = _radius; }
 
-
+    //Other Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,7 +61,6 @@ public class Cylinder extends Geometry{
         Cylinder cylinder = (Cylinder) o;
         return Double.compare(cylinder._radius, _radius) == 0 && Double.compare(cylinder._height, _height) == 0 && _axis.equals(cylinder._axis);
     }
-
 
     @Override
     public int hashCode() {

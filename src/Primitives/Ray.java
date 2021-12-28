@@ -6,15 +6,18 @@ public class Ray {
     private Point3D _startingPoint;
     private Vector _direction;
 
+    //Constructors
     public Ray(){
         this._direction = new Vector(1,1,1).normalize();
         this._startingPoint = new Point3D();
     }
+
     public Ray(double xPoint, double yPoint, double zPoint,
                double xVector, double yVector, double zVector){
         this._startingPoint = new Point3D(xPoint, yPoint, zPoint);
         this._direction = new Vector(xVector, yVector, zVector).normalize();
     }
+
     public Ray(Ray toCopy){
         this._startingPoint = new Point3D(toCopy.getStartingPoint());
         this._direction = new Vector(toCopy.getDirection()).normalize();
@@ -25,9 +28,11 @@ public class Ray {
         this._direction = new Vector(vector).normalize();
     }
 
+    //Getters
     public Point3D getStartingPoint() { return this._startingPoint; }
     public Vector getDirection() { return this._direction; }
 
+    //Setters
     public void setStartingPoint(double xPoint, double yPoint, double zPoint){
         this._startingPoint = new Point3D(xPoint, yPoint, zPoint);
     }
@@ -42,6 +47,7 @@ public class Ray {
         this._direction = new Vector(vector);
     }
 
+    //Other Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

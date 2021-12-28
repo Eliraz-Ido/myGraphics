@@ -5,6 +5,7 @@ import java.util.Objects;
 public class Coordinate {
     private double _coordinate;
 
+    //Constructors
     public Coordinate(){
         this._coordinate = 0;
     }
@@ -15,8 +16,13 @@ public class Coordinate {
         this._coordinate = toCopy._coordinate;
     }
 
+    //Getter
     public double getCoordinate(){ return this._coordinate; }
+
+    //Setter
     public void set(double coordinate) { this._coordinate = coordinate; }
+
+    //Other Methods
     public double add(Coordinate toAdd){ return this._coordinate + toAdd._coordinate;}
 
     @Override

@@ -11,11 +11,13 @@ public class Triangle extends Geometry{
     private Point3D _p2;
     private Point3D _p3;
 
+    //Constructors
     public Triangle(){
         this._p1 = new Point3D();
         this._p2 = new Point3D();
         this._p3 = new Point3D();
     }
+
     public Triangle(double x1, double y1, double z1,
                     double x2, double y2, double z2,
                     double x3, double y3, double z3){
@@ -23,11 +25,13 @@ public class Triangle extends Geometry{
         this._p2 = new Point3D(x2,y2,z2);
         this._p3 = new Point3D(x3,y3,z3);
     }
+
     public Triangle(Triangle toCopy){
         this._p1 = new Point3D(toCopy._p1);
         this._p2 = new Point3D(toCopy._p2);
         this._p3 = new Point3D(toCopy._p3);
     }
+
     public Triangle(Point3D p1,Point3D p2, Point3D p3){
         this._p1 = new Point3D(p1);
         this._p2 = new Point3D(p2);
@@ -41,6 +45,12 @@ public class Triangle extends Geometry{
         this._emission = color;
     }
 
+    //Getters
+    public Point3D getP1() { return _p1; }
+    public Point3D getP2() { return _p2; }
+    public Point3D getP3() { return _p3; }
+
+    //Setters
     public void setP1(double x1, double y1, double z1) {
         this._p1 = new Point3D(x1,y1,z1);
     }
@@ -49,21 +59,19 @@ public class Triangle extends Geometry{
         this._p3 = new Point3D(x3,y3,z3);
     }
 
-    public Point3D getP1() { return _p1; }
-    public Point3D getP2() { return _p2; }
-    public Point3D getP3() { return _p3; }
-
+    //Other Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Triangle triangle2 = (Triangle) o;
-        return  this._p1.equals(triangle2._p1) && this._p2.equals(triangle2._p2) && this._p3.equals(triangle2._p3) ||
-                this._p1.equals(triangle2._p1) && this._p2.equals(triangle2._p3) && this._p3.equals(triangle2._p2) ||
-                this._p1.equals(triangle2._p2) && this._p2.equals(triangle2._p1) && this._p3.equals(triangle2._p3) ||
-                this._p1.equals(triangle2._p2) && this._p2.equals(triangle2._p3) && this._p3.equals(triangle2._p1) ||
-                this._p1.equals(triangle2._p3) && this._p2.equals(triangle2._p1) && this._p3.equals(triangle2._p2) ||
-                this._p1.equals(triangle2._p3) && this._p2.equals(triangle2._p2) && this._p3.equals(triangle2._p1);
+        return  (this._p1.equals(triangle2._p1) && this._p2.equals(triangle2._p2) && this._p3.equals(triangle2._p3) ||
+                 this._p1.equals(triangle2._p1) && this._p2.equals(triangle2._p3) && this._p3.equals(triangle2._p2) ||
+                 this._p1.equals(triangle2._p2) && this._p2.equals(triangle2._p1) && this._p3.equals(triangle2._p3) ||
+                 this._p1.equals(triangle2._p2) && this._p2.equals(triangle2._p3) && this._p3.equals(triangle2._p1) ||
+                 this._p1.equals(triangle2._p3) && this._p2.equals(triangle2._p1) && this._p3.equals(triangle2._p2) ||
+                 this._p1.equals(triangle2._p3) && this._p2.equals(triangle2._p2) && this._p3.equals(triangle2._p1))
+                && this._material.equals(triangle2._material);
     }
 
     @Override
@@ -75,7 +83,8 @@ public class Triangle extends Geometry{
     public String toString() {
         return  "P1: " + _p1 +
                 "P2: " + _p2 +
-                "P3: " + _p3;
+                "P3: " + _p3 +
+                "Material: " + _material;
     }
 
 

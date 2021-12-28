@@ -10,16 +10,19 @@ public class Point3D{
     private Coordinate _z;
     public static final Point3D ZERO = new Point3D(0,0,0);
 
+    //Constructors
     public Point3D(){
         this.setX(0);
         this.setY(0);
         this.setZ(0);
     }
+
     public Point3D(double x, double y, double z){
         this.setX(x);
         this.setY(y);
         this.setZ(z);
-     }
+    }
+
     public Point3D(Point3D toCopy){
         this._x = new Coordinate(toCopy.getX());
         this._y = new Coordinate(toCopy.getY());
@@ -27,14 +30,17 @@ public class Point3D{
     }
 
 
+    //Getters
     public double getX() { return _x.getCoordinate(); }
     public double getY() { return _y.getCoordinate(); }
     public double getZ() { return _z.getCoordinate(); }
 
+    //Setters
     public void setX(double x) { this._x = new Coordinate(x); }
     public void setY(double y) { this._y = new Coordinate(y); }
     public void setZ(double z) { this._z = new Coordinate(z); }
 
+    //Other Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

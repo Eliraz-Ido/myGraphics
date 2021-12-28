@@ -5,15 +5,18 @@ import java.util.Objects;
 public class Vector {
     private Point3D _head;
 
+    //Constructors
     public Vector() {
         this._head = new Point3D(1,1,1);
     }
+
     public Vector(double x, double y, double z) {
         Point3D temp = new Point3D(x, y, z);
         if (Point3D.ZERO.equals(temp))
             throw new IllegalArgumentException("Zero vector is not allowed");
         this._head = temp;
     }
+
     public Vector(Point3D p) {
         if (Point3D.ZERO.equals(p))
             throw new IllegalArgumentException("Zero vector is not allowed");
@@ -24,9 +27,12 @@ public class Vector {
         _head = new Point3D(other._head);
     }
 
+    //Getter
     public Point3D getHead() {
         return this._head;
     }
+
+    //Setters
     public void setHead(Point3D head){
         this._head = new Point3D(head);
     }
@@ -34,6 +40,7 @@ public class Vector {
         this._head = new Point3D(x,y,z);
     }
 
+    //Other Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

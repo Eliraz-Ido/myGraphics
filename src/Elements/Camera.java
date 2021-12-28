@@ -11,6 +11,7 @@ public class Camera {
     private Vector _vTo;
     private Vector _vRight;
 
+    //Constructors
     public Camera() {
         this._P0 = new Point3D();
         this._vUp = new Vector(0, -1, 0);
@@ -25,15 +26,19 @@ public class Camera {
         this.setVRight(to.crossProduct(up).normalize());
     }
 
+    //Getters
     public Point3D getP0() { return _P0; }
-    public void setP0(Point3D _P0) { this._P0 = _P0; }
     public Vector getVUp() { return _vUp; }
-    public void setVUp(Vector _vUp) { this._vUp = _vUp; }
     public Vector getVRight() { return _vRight; }
-    public void setVRight(Vector _vRight) { this._vRight = _vRight; }
     public Vector getVTo() { return _vTo; }
+
+    //Setters
+    public void setP0(Point3D _P0) { this._P0 = _P0; }
+    public void setVUp(Vector _vUp) { this._vUp = _vUp; }
+    public void setVRight(Vector _vRight) { this._vRight = _vRight; }
     public void setVTo(Vector _vTo) { this._vTo = _vTo; }
 
+    //Other Methods
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
