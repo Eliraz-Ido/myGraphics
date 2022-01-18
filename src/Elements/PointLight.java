@@ -4,6 +4,8 @@ import Primitives.Point3D;
 import Primitives.Vector;
 import java.awt.*;
 
+import static Helper.ColorFormulas.colorMultiplyDouble;
+
 public class PointLight extends Light {
     Point3D _position;
     double _kc;
@@ -13,10 +15,18 @@ public class PointLight extends Light {
     //Constrictors
     public PointLight(Color c, Point3D _position, double _kc, double _kl, double _kq) {
         this._intensity = c;
-        this._position = _position;
+        this._position = new Point3D(_position);
         this._kc = _kc;
         this._kl = _kl;
         this._kq = _kq;
+    }
+
+    public PointLight(Color c) {
+        this._intensity = c;
+        this._position = new Point3D();
+        this._kc = 0.1;
+        this._kl = 0.1;
+        this._kq = 0.1;
     }
 
     //Getters
@@ -42,5 +52,6 @@ public class PointLight extends Light {
     @Override
     public Vector getL(Point3D p) {
         return _position.subtract(p);
+//        return p.subtract(_position);
     }
 }

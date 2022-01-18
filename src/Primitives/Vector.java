@@ -12,14 +12,18 @@ public class Vector {
 
     public Vector(double x, double y, double z) {
         Point3D temp = new Point3D(x, y, z);
-        if (Point3D.ZERO.equals(temp))
+        if (Point3D.ZERO.equals(temp)) {
+            temp=Point3D.ZERO;
             throw new IllegalArgumentException("Zero vector is not allowed");
+        }
         this._head = temp;
     }
 
     public Vector(Point3D p) {
-        if (Point3D.ZERO.equals(p))
+        if (Point3D.ZERO.equals(p)) {
+            p=Point3D.ZERO;
             throw new IllegalArgumentException("Zero vector is not allowed");
+        }
         this._head = new Point3D(p);
     }
 
@@ -63,6 +67,12 @@ public class Vector {
         return(new Point3D(0,0,0).distance(this._head));
     }
 
+    public double lengthSquared() {
+        return _head.getX()* _head.getX() + //
+                _head.getY() * _head.getY() + //
+                _head.getZ() * _head.getZ();
+    }
+
     public Vector normalize(){
         Vector normalVector = new Vector();
         double length = this.length();
@@ -78,6 +88,7 @@ public class Vector {
         return this.getHead().subtract(other.getHead());
     }
     public Vector scale(double scalar){
+        if(scalar == 0) return null;
         return (new Vector(
                 this.getHead().getX() * scalar,
                 this.getHead().getY() * scalar,
@@ -93,7 +104,7 @@ public class Vector {
                 - this.getHead().getY() * other.getHead().getX());
         return (new Vector(newHead));
     }
-    public double dotProduct(Vector other){
+    public double dotProduct(Vector other) {
         return  ( this.getHead().getX() * other.getHead().getX()
                 + this.getHead().getY() * other.getHead().getY()
                 + this.getHead().getZ() * other.getHead().getZ());

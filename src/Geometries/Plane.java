@@ -4,9 +4,11 @@ import Primitives.Ray;
 import Primitives.Vector;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 public class Plane extends Geometry{
     private Point3D _pointInPlane;
@@ -99,26 +101,39 @@ public class Plane extends Geometry{
                           normal.getY() * otherPoint.getY() +   // Calculating the d for the plane with otherPoint .
                           normal.getZ() * otherPoint.getZ());
 
-        return correctD == otherD;
+        return correctD - otherD < 0.005 && otherD - correctD < 0.005;
     }
 
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> intersections = new ArrayList<>();
-        if (!this._pointInPlane.equals(ray.getStartingPoint())) {
-            double numerator = this._verticalToPlane.dotProduct(this._pointInPlane.subtract(ray.getStartingPoint()));
-            double denominator = this._verticalToPlane.dotProduct(ray.getDirection());
-            if (denominator == 0) {       // The Ray is contained or parallel to the plane.
-                return null;
-            } else if ( 0 < numerator / denominator) {
-                Point3D p = ray.getStartingPoint().add(ray.getDirection().scale(numerator / denominator));
-                intersections.add(new GeoPoint(this,p));
-                return intersections;
-            }
-        }
-        return null;
+//        List<GeoPoint> intersections = new ArrayList<>();
+//        if (!this._pointInPlane.equals(ray.getStartingPoint())) {
+//            double numerator = this._verticalToPlane.dotProduct(this._pointInPlane.subtract(ray.getStartingPoint()));
+//            double denominator = this._verticalToPlane.dotProduct(ray.getDirection());
+//            if (denominator == 0 ) {       // The Ray is contained or parallel to the plane.
+//                return null;
+//            } else if ( 0 < numerator / denominator) {
+//                Point3D p = ray.getStartingPoint().add(ray.getDirection().scale(numerator / denominator));
+//                intersections.add(new GeoPoint(this,p));
+//                return intersections;
+//            }
+//        }
+//        return null;
 
+        Vector p0Q;
+           try {
+               p0Q = _pointInPlane.subtract(ray.getStartingPoint());
+           } catch (IllegalArgumentException e) {
+               return null; // ray starts from point Q - no intersections
+           }
+
+           double nv = _verticalToPlane.dotProduct(ray.getDirection());
+           if (isZero(nv)) // ray is parallel to the plane - no intersections
+               return null;
+
+           double t = alignZero(_verticalToPlane.dotProduct(p0Q) / nv);
+           return t <= 0  ? null : primitives.Util.listOf(new GeoPoint(this, new Point3D(ray.getStartingPoint().add(ray.getDirection().scale(t)))));
     }
 
     @Override

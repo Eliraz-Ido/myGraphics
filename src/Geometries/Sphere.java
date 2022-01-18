@@ -4,9 +4,11 @@ import Primitives.Ray;
 import Primitives.Vector;
 
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static primitives.Util.alignZero;
+import static primitives.Util.isZero;
 
 public class Sphere extends Geometry{
     private Point3D _center;
@@ -75,23 +77,31 @@ public class Sphere extends Geometry{
 
     @Override
     public List<GeoPoint> findIntersections(Ray ray) {
-        List<GeoPoint> list = new ArrayList<>();
-        Vector u = this._center.subtract(ray.getStartingPoint());
-        double tm = ray.getDirection().dotProduct(u);
-        double d = Math.sqrt( Math.pow(u.length(), 2) - Math.pow(tm, 2) );
-        if (d <= this._radius) {
-            double th = Math.sqrt( Math.pow(this._radius, 2) - Math.pow(d, 2) );
-            double t1 = tm - th;
-            double t2 = tm + th;
-            if (0 < t1 || 0 < t2) {
-                if (0 < t1)
-                    list.add(new GeoPoint(this, ray.getStartingPoint().add( ray.getDirection().scale(t1) )) );
-                if (0 < t2)
-                    list.add(new GeoPoint( this,ray.getStartingPoint().add( ray.getDirection().scale(t2) )) );
-                return list;
-            }
-        }
-        return null;
+        Point3D p0 = ray.getStartingPoint();
+        Vector v = ray.getDirection();
+        Vector u;
+        u = _center.subtract(p0);
+
+        double tm = v.dotProduct(u);
+        double dSquared = isZero(tm) ? u.lengthSquared() : u.lengthSquared() - tm * tm;
+
+        double thSquared = alignZero(_radius * _radius - dSquared);
+        if (thSquared <= 0) return null;
+        double th = Math.sqrt(thSquared);
+        if (isZero(th)) return null;
+
+        double t1 = alignZero(tm + th);
+        if (t1 <= 0) return null; // t1 is behind the head since th must be positive (sqrt), t2 must be non-positive as t1
+
+        double t2 = alignZero(tm - th);
+
+		// if both t1 and t2 are positive
+		if (t2 > 0)
+				return primitives.Util.listOf(new GeoPoint(this,new Point3D(p0).add(v.scale(t1))),
+                        new GeoPoint(this, new Point3D(p0).add(v.scale(t2))));
+
+		else // t2 is behind the head
+			return primitives.Util.listOf(new GeoPoint(this,new Point3D(p0).add(v.scale(t1))));
     }
         @Override
     public Vector getNormal(Point3D point) {

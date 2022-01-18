@@ -5,6 +5,8 @@ import Primitives.Vector;
 
 import java.awt.*;
 
+import static Helper.ColorFormulas.colorMultiplyDouble;
+
 public class AmbientLight extends Light {
     double _ka = 0.1;
 

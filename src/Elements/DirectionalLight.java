@@ -30,7 +30,8 @@ public class DirectionalLight extends Light{
 
     @Override
     public Vector getL(Point3D p) {
-//        return _direction.getHead().subtract(p);
-        return p.subtract(_direction.getHead());
+        return _direction.getHead().subtract(p);
+//        return p.subtract(_direction.getHead());
+//        return _direction;
     }
 }

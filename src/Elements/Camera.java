@@ -68,7 +68,7 @@ public class Camera {
         double rX = screenWidth / nX;
         double yI = (i - nY/2.0 + 0.5) * rY;
         double xJ = (j - nX/2.0 + 0.5) * rX;
-        Point3D pIJ = pCenter;
+        Point3D pIJ = new Point3D(pCenter);
         if(xJ != 0) pIJ = pIJ.add(this._vRight.scale(xJ));
         if(yI != 0) pIJ = pIJ.add(this._vUp.scale(-yI));
         Vector vIJ = new Vector(pIJ.subtract(this._P0));

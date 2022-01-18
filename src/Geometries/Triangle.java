@@ -27,6 +27,8 @@ public class Triangle extends Geometry{
     }
 
     public Triangle(Triangle toCopy){
+        this._material = new Material(toCopy._material);
+        this._emission = toCopy._emission;
         this._p1 = new Point3D(toCopy._p1);
         this._p2 = new Point3D(toCopy._p2);
         this._p3 = new Point3D(toCopy._p3);

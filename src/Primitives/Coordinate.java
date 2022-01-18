@@ -31,8 +31,8 @@ public class Coordinate {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Coordinate coordinate2 = (Coordinate) o;
-        return  this.getCoordinate() - coordinate2.getCoordinate() < 0.0000000005 &&
-                coordinate2.getCoordinate() - this.getCoordinate() < 0.0000000005;
+        return  this.getCoordinate() - coordinate2.getCoordinate() < 0.00000000000005 &&
+                coordinate2.getCoordinate() - this.getCoordinate() < 0.00000000000005;
     }
 
     @Override

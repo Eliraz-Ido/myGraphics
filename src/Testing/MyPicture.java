@@ -17,54 +17,54 @@ import org.junit.jupiter.api.Test;
 
 import java.awt.*;
 
-public class MyLightTest {
+public class MyPicture {
 
     @Test
     public void myLightTest() {
 
-        Scene scene = new Scene("MyLightTest");
+        Scene scene = new Scene("MyPictureTest");
         scene.setBackground(new Color(0, 0, 0));
-        scene.setCamera(new Camera( new Point3D(0, 0, 0),new Vector(0.0, 0.0, 1.0),new Vector(0,-1, 0.0)));
+        scene.setCamera(new Camera(new Point3D(0, 0, 0), new Vector(0.0, 0.0, 1.0), new Vector(0, -1, 0.0)));
         scene.setScreenDistance(300);
         scene.setAmbientLight(new AmbientLight(new Color(0, 0, 100), 0.1));
 
-        Material m1 = new Material(1,1,4);
+        Material m1 = new Material(1, 1,0,4);
+        Material m2 = new Material(1, 1, 1, 4);
 
         Triangle triangle = new Triangle(new Point3D(0, -200, 260),
                 new Point3D(-200, 100, 260),
                 new Point3D(200, 100, 260),
-                new Color (0, 0, 100));
+                new Color(0, 0, 0));
         triangle.setMaterial(m1);
-//        scene.addGeometry(triangle);
+        scene.addGeometry(triangle);
 
         Triangle triangle2 = new Triangle(new Point3D(20, -100, 200),
                 new Point3D(-80, 100, 200),
                 new Point3D(120, 100, 200),
-                new Color (193, 103, 203));
+                new Color(193, 103, 203));
         triangle2.setMaterial(m1);
 //        scene.addGeometry(triangle2);
 
-        Sphere s = new Sphere(40, new Point3D(70,70, 150), new Color(38, 204, 227));
-        s.setMaterial(new Material(1,1,20));
+        Sphere s = new Sphere(40, new Point3D(70, 70, 150), new Color(38, 204, 227));
+        s.setMaterial(new Material(1, 1,20));
 //        scene.addGeometry(s);
 
-//        Sphere s2 = new Sphere(250, new Point3D(-250,0, 700), new Color(74, 197, 153));
-        Sphere s2 = new Sphere(250, new Point3D(-250,0, 700), new Color(0, 0, 100));
-        s2.setMaterial(new Material(1,1,20));
-        scene.addGeometry(s2);
+        Sphere s2 = new Sphere(250, new Point3D(-250,0, 700), new Color(74, 197, 153));
+        s2.setMaterial(new Material(1, 1, 0,20));
+//        scene.addGeometry(s2);
 
-        Plane plane = new Plane(new Point3D(-800,400,0), new Vector(3,-2, 0), new Color(136, 15, 50));
-        plane.setMaterial(m1);
+        Plane plane = new Plane(new Point3D(-800, 400, 0), new Vector(3, -2, 0), new Color(136, 15, 50));
+        plane.setMaterial(m2);
         scene.addGeometry(plane);
 
 
-//        scene.addLight(new PointLight(new Color(200, 100, 100), new Point3D(100, -100, 100),
-//                0.1, 0.00001, 0.000005));
-
-        scene.addLight(new SpotLight(new Color(0, 200, 100), new Point3D(100, -100, 200), new Vector(-2,-2,10),
+        scene.addLight(new PointLight(new Color(200, 100, 100), new Point3D(100, -100, 100),
                 0.1, 0.00001, 0.000005));
 
-        ImageWriter imageWriter = new ImageWriter("My Light Test", 1000, 1000, 1000, 1000);
+//        scene.addLight(new SpotLight(new Color(0, 200, 100), new Point3D(100, -100, 200), new Vector(-2, -2, 10),
+//                0.1, 0.00001, 0.000005));
+
+        ImageWriter imageWriter = new ImageWriter("MyPictureTest", 1000, 1000, 1000, 1000);
 
         Renderer render = new Renderer(scene, imageWriter);
 

@@ -5,6 +5,8 @@ import Primitives.Vector;
 
 import java.awt.*;
 
+import static Helper.ColorFormulas.colorMultiplyDouble;
+
 public class SpotLight extends PointLight{
     private Vector _direction;
 

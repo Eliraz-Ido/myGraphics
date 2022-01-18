@@ -78,9 +78,9 @@ public class Point3D{
 
     public double distance(Point3D other){
         return Math.sqrt
-                ( Math.pow(this.getX() + other.getX(), 2)
-                        + Math.pow(this.getY() + other.getY(), 2)
-                        + Math.pow(this.getZ() + other.getZ(), 2));
+                ( Math.pow(this.getX() - other.getX(), 2)
+                        + Math.pow(this.getY() - other.getY(), 2)
+                        + Math.pow(this.getZ() - other.getZ(), 2));
     }
 
     public double distance(GeoPoint point) {
